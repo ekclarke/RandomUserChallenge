@@ -11,6 +11,7 @@ import com.example.randomuserchallenge.databinding.ActivityMainBinding
 //TODO: create detail activity
 //TODO: implement click listener
 //TODO: use intent to pass user to detail activity
+
 class MainActivity : AppCompatActivity() {
     private val userViewModel: UserViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         Log.d(TAG, "adapter and layout manager assigned")
+        //TODO: set listener
         MoshiHelper.buildMoshi()
         refreshData()
     }
