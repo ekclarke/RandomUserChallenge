@@ -15,7 +15,8 @@ data class User(
     val cell: String,
     val id: ID,
     val picture: PictureData,
-    val nat: String)
+    val nat: String
+)
 
 @JsonClass(generateAdapter = true)
 data class Name(
@@ -72,7 +73,7 @@ data class Login(
 @JsonClass(generateAdapter = true)
 data class ID(
     val name: String,
-    val value: String?=null
+    val value: String? = null
 )
 
 @JsonClass(generateAdapter = true)

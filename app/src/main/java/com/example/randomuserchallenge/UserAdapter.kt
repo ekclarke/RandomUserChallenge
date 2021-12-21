@@ -1,7 +1,6 @@
 package com.example.randomuserchallenge
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,31 +8,34 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class UserAdapter(val listener: ItemListener): RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
-    private val TAG = "UserAdapter"
+class UserAdapter(private val listener: ItemListener) :
+    RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     private val userList: MutableList<User> = mutableListOf()
 
-     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        Log.d(TAG, "onCreateViewHolder new view requested")
-        val adapterLayout = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
+    init {
+        this.setHasStableIds(true)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        val adapterLayout =
+            LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
         return UserViewHolder(adapterLayout, listener)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder called")
         val userItem = userList[position]
         holder.bindView(userItem)
     }
 
     override fun getItemCount() = userList.size
 
-    //NB: I know this is generally bad practice, but in this case this is actually the notification we want to use!
-    //TODO: look up adapterset stable IDs
+    override fun getItemId(position: Int): Long {
+        return userList[position].hashCode().toLong()
+    }
+
     @SuppressLint("NotifyDataSetChanged")
-    fun update(newList: List<User>){
-        Log.d(TAG, "update called")
-        //TODO: implement a more elegant list update function
-        if (newList.isNotEmpty()){
+    fun update(newList: List<User>) {
+        if (newList.isNotEmpty()) {
             userList.clear()
             userList.addAll(newList)
             notifyDataSetChanged()
@@ -44,24 +46,24 @@ class UserAdapter(val listener: ItemListener): RecyclerView.Adapter<UserAdapter.
         fun viewUserDetails(clickedUser: User)
     }
 
-    class UserViewHolder(view: View, val listener: ItemListener): RecyclerView.ViewHolder(view){
-        val firstNameView: TextView = view.findViewById(R.id.firstname_view)
-        val lastNameView: TextView = view.findViewById(R.id.lastname_view)
-        val thumbnailView: ImageView = view.findViewById(R.id.user_thumbnail)
+    class UserViewHolder(view: View, private val listener: ItemListener) :
+        RecyclerView.ViewHolder(view) {
+        private val firstNameView: TextView = view.findViewById(R.id.firstname_view)
+        private val lastNameView: TextView = view.findViewById(R.id.lastname_view)
+        private val thumbnailView: ImageView = view.findViewById(R.id.user_thumbnail)
 
-        lateinit var targetUser:User
+        private lateinit var targetUser: User
 
-        init{
-            view.setOnClickListener(){
+        init {
+            view.setOnClickListener {
                 listener.viewUserDetails(targetUser)
             }
         }
 
-        fun bindView(user: User){
+        fun bindView(user: User) {
             targetUser = user
-            Log.d("USERVIEWHOLDER", targetUser.name.first)
-            firstNameView.text=targetUser.name.first
-            lastNameView.text=targetUser.name.last
+            firstNameView.text = targetUser.name.first
+            lastNameView.text = targetUser.name.last
             ImageHelper.loadImage(targetUser.picture.thumbnail, thumbnailView)
         }
     }
