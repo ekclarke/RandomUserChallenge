@@ -7,10 +7,9 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.randomuserchallenge.databinding.ActivityMainBinding
 
-//TODO: update icon
-//TODO: create detail activity
+//TODO: create detail activity -or- modal bottom sheet dialog
 //TODO: implement click listener
-//TODO: use intent to pass user to detail activity
+//TODO: use intent to pass user to detail activity -or- use modal bottom sheet dialog
 
 class MainActivity : AppCompatActivity() {
     private val userViewModel: UserViewModel by viewModels()
@@ -18,7 +17,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: UserAdapter
 
     private val TAG = "MainActivity"
-    private val dataUrl = "https://randomuser.me/api/?format=json"
+    private val dataUrl = "https://randomuser.me/api/?format=json&results=100&noinfo"
+
+    private val adapterListener = object:UserAdapter.ItemListener{
+        override fun viewUserDetails(clickedUser: User) {
+            var userDetailFragment = DetailDialogFragment.newInstance(clickedUser)
+            //fix it so show works properly
+            userDetailFragment.show(supportFragmentManager, "User details")
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate called")
@@ -27,12 +35,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val recyclerView = binding.userListRecyclerView
         Log.d(TAG, "recyclerView bound")
-        adapter = UserAdapter()
+        adapter = UserAdapter(adapterListener)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         Log.d(TAG, "adapter and layout manager assigned")
-        //TODO: set listener
         MoshiHelper.buildMoshi()
         refreshData()
     }

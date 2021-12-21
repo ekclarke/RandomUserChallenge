@@ -1,12 +1,6 @@
 package com.example.randomuserchallenge
 
-
-
-import android.graphics.Picture
-import android.location.Location
 import com.squareup.moshi.JsonClass
-import java.util.jar.Attributes
-
 
 @JsonClass(generateAdapter = true)
 data class User(
@@ -23,14 +17,16 @@ data class User(
     val picture: PictureData,
     val nat: String)
 
+@JsonClass(generateAdapter = true)
 data class Name(
     val title: String,
     val first: String,
     val last: String
 )
 
+@JsonClass(generateAdapter = true)
 data class LocationData(
-    val street: String,
+    val street: Street,
     val city: String,
     val state: String,
     val postcode: String,
@@ -38,21 +34,31 @@ data class LocationData(
     val timezone: Timezone
 )
 
+@JsonClass(generateAdapter = true)
+data class Street(
+    val number: String,
+    val name: String
+)
+
+@JsonClass(generateAdapter = true)
 data class Coordinates(
     val latitude: String,
     val longitude: String
 )
 
+@JsonClass(generateAdapter = true)
 data class Timezone(
     val offset: String,
     val description: String
 )
 
+@JsonClass(generateAdapter = true)
 data class Date(
     val date: String,
     val age: String
 )
 
+@JsonClass(generateAdapter = true)
 data class Login(
     val uuid: String,
     val username: String,
@@ -63,11 +69,13 @@ data class Login(
     val sha256: String
 )
 
+@JsonClass(generateAdapter = true)
 data class ID(
     val name: String,
-    val value: String
+    val value: String?=null
 )
 
+@JsonClass(generateAdapter = true)
 data class PictureData(
     val large: String,
     val medium: String,

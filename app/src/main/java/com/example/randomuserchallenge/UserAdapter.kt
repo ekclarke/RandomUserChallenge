@@ -8,32 +8,26 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class UserAdapter: RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
-        private val TAG = "UserAdapter"
+class UserAdapter(val listener: ItemListener): RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
+    private val TAG = "UserAdapter"
     private val userList: MutableList<User> = mutableListOf()
 
-    class UserViewHolder(view: View): RecyclerView.ViewHolder(view){
-        //TODO: bind all the things we want to display here
-        val nameView: TextView = view.findViewById(R.id.name_view)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         Log.d(TAG, "onCreateViewHolder new view requested")
         val adapterLayout = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
-        return UserViewHolder(adapterLayout)
+        return UserViewHolder(adapterLayout, listener)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder called")
         val userItem = userList[position]
-        //TODO: implement intent with passing the ID
-        Log.d(TAG, userItem.name.first)
-        holder.nameView.text=userItem.name.first
+        holder.bindView(userItem)
     }
 
     override fun getItemCount() = userList.size
 
     //NB: I know this is generally bad practice, but in this case this is actually the notification we want to use!
+    //TODO: look up adapterset stable IDs
     @SuppressLint("NotifyDataSetChanged")
     fun update(newList: List<User>){
         Log.d(TAG, "update called")
@@ -42,6 +36,28 @@ class UserAdapter: RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
             userList.clear()
             userList.addAll(newList)
             notifyDataSetChanged()
+        }
+    }
+
+    interface ItemListener {
+        fun viewUserDetails(clickedUser: User)
+    }
+
+    class UserViewHolder(view: View, val listener: ItemListener): RecyclerView.ViewHolder(view){
+        //TODO: list all the things we want to display here
+        val nameView: TextView = view.findViewById(R.id.name_view)
+        lateinit var targetUser:User
+
+        init{
+            view.setOnClickListener(){
+                listener.viewUserDetails(targetUser)
+            }
+        }
+
+        fun bindView(user: User){
+            targetUser = user
+            Log.d("USERVIEWHOLDER", targetUser.name.first)
+            nameView.text=targetUser.name.first
         }
     }
 }
