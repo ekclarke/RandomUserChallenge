@@ -20,7 +20,6 @@ class DetailDialogFragment : BottomSheetDialogFragment() {
     private val TAG = "DetailDialogFragment"
     private lateinit var passedUser: User
     private lateinit var binding: BottomSheetDetailBinding
-    private val sharedViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,6 +31,7 @@ class DetailDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ImageHelper.loadImage(passedUser.picture.large, binding.userPicture)
         val title = passedUser.name.title
         if (title == "Ms" || title == "Mrs" || title == "Mr") {
             binding.userTitle.text = title + "."
@@ -40,7 +40,6 @@ class DetailDialogFragment : BottomSheetDialogFragment() {
         binding.userLastName.text = passedUser.name.last
         binding.userAge.text=passedUser.dob.age
         //TODO: convert to more readable dates
-        
         binding.userDob.text=passedUser.dob.date
         binding.userEmail.text=passedUser.email
         binding.userUuid.text=passedUser.login.username

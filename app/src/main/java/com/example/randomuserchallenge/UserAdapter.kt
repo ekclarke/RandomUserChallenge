@@ -45,7 +45,6 @@ class UserAdapter(val listener: ItemListener): RecyclerView.Adapter<UserAdapter.
     }
 
     class UserViewHolder(view: View, val listener: ItemListener): RecyclerView.ViewHolder(view){
-        //TODO: list all the things we want to display here
         val firstNameView: TextView = view.findViewById(R.id.firstname_view)
         val lastNameView: TextView = view.findViewById(R.id.lastname_view)
         val thumbnailView: ImageView = view.findViewById(R.id.user_thumbnail)
@@ -63,7 +62,7 @@ class UserAdapter(val listener: ItemListener): RecyclerView.Adapter<UserAdapter.
             Log.d("USERVIEWHOLDER", targetUser.name.first)
             firstNameView.text=targetUser.name.first
             lastNameView.text=targetUser.name.last
-            //thumbnailView.image=targetUser.picturedata.thumbnail
+            ImageHelper.loadImage(targetUser.picture.thumbnail, thumbnailView)
         }
     }
 }
