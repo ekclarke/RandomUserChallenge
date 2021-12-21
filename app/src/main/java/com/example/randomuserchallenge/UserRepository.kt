@@ -25,7 +25,6 @@ fun getUsers(url: String, callback: Callback){
             //TODO: implement more elegant error handing. Better info on unsuccessful response?
             if (!response.isSuccessful) throw IOException("Unsuccessful response.")
             callback.onComplete(UserListWrapper.processJSONtoList(response.body!!.source()))
-            //TODO: make sure "info" is being handled appropriately. May cause problems, esp. in repository
             response.close()
         }
     }

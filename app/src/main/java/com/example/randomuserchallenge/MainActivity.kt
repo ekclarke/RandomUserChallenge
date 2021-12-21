@@ -7,25 +7,19 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.randomuserchallenge.databinding.ActivityMainBinding
 
-//TODO: create detail activity -or- modal bottom sheet dialog
-//TODO: implement click listener
-//TODO: use intent to pass user to detail activity -or- use modal bottom sheet dialog
-
 class MainActivity : AppCompatActivity() {
     private val userViewModel: UserViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: UserAdapter
 
     private val TAG = "MainActivity"
-    private val dataUrl = "https://randomuser.me/api/?format=json&results=100&noinfo"
+    private val dataUrl = "https://randomuser.me/api/?format=json&results=100&noinfo&nat=us"
 
     private val adapterListener = object:UserAdapter.ItemListener{
         override fun viewUserDetails(clickedUser: User) {
             var userDetailFragment = DetailDialogFragment.newInstance(clickedUser)
-            //fix it so show works properly
             userDetailFragment.show(supportFragmentManager, "User details")
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

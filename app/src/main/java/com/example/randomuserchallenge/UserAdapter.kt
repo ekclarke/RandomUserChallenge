@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -45,7 +46,10 @@ class UserAdapter(val listener: ItemListener): RecyclerView.Adapter<UserAdapter.
 
     class UserViewHolder(view: View, val listener: ItemListener): RecyclerView.ViewHolder(view){
         //TODO: list all the things we want to display here
-        val nameView: TextView = view.findViewById(R.id.name_view)
+        val firstNameView: TextView = view.findViewById(R.id.firstname_view)
+        val lastNameView: TextView = view.findViewById(R.id.lastname_view)
+        val thumbnailView: ImageView = view.findViewById(R.id.user_thumbnail)
+
         lateinit var targetUser:User
 
         init{
@@ -57,7 +61,9 @@ class UserAdapter(val listener: ItemListener): RecyclerView.Adapter<UserAdapter.
         fun bindView(user: User){
             targetUser = user
             Log.d("USERVIEWHOLDER", targetUser.name.first)
-            nameView.text=targetUser.name.first
+            firstNameView.text=targetUser.name.first
+            lastNameView.text=targetUser.name.last
+            //thumbnailView.image=targetUser.picturedata.thumbnail
         }
     }
 }

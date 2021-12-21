@@ -3,37 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <ImageView
         android:id="@+id/user_picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
+        android:src="@drawable/ic_launcher_foreground"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/name_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/user_picture"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/user_picture"
-        app:layout_constraintTop_toTopOf="@id/user_picture">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_picture">
 
         <TextView
             android:id="@+id/user_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mrs." />
+            android:text="Mrs."
+            android:paddingEnd="5dp"/>
 
         <TextView
             android:id="@+id/user_first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Emily" />
+            android:text="Emily"
+            android:paddingEnd="5dp"/>
 
         <TextView
             android:id="@+id/user_last_name"
@@ -44,6 +48,47 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/age_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Age:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_layout" />
+
+    <TextView
+        android:id="@+id/user_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="31"
+        app:layout_constraintStart_toStartOf="@id/user_phone"
+        app:layout_constraintStart_toEndOf="@id/age_title"
+        app:layout_constraintTop_toBottomOf="@id/name_layout" />
+    <TextView
+        android:id="@+id/dob_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Date of birth:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/age_title" />
+
+    <TextView
+        android:id="@+id/user_dob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="10-03-1990"
+        app:layout_constraintStart_toStartOf="@id/user_phone"
+        app:layout_constraintStart_toEndOf="@id/dob_title"
+        app:layout_constraintTop_toBottomOf="@id/age_title" />
+
+
+
+    <TextView
         android:id="@+id/email_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,15 +96,16 @@
         android:text="Email:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_picture" />
+        app:layout_constraintTop_toBottomOf="@id/dob_title" />
+
     <TextView
         android:id="@+id/user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="emkclarke@gmail.com"
-        app:layout_constraintStart_toEndOf="@id/email_title"
-        app:layout_constraintTop_toBottomOf="@id/user_picture" />
+        app:layout_constraintStart_toStartOf="@id/user_phone"
+        app:layout_constraintTop_toBottomOf="@id/dob_title" />
 
     <TextView
         android:id="@+id/uuid_title"
@@ -70,59 +116,16 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_title" />
+
     <TextView
         android:id="@+id/user_uuid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="ekclarke"
+        app:layout_constraintStart_toStartOf="@id/user_phone"
         app:layout_constraintStart_toEndOf="@id/uuid_title"
         app:layout_constraintTop_toBottomOf="@id/user_email" />
-
-    <TextView
-        android:id="@+id/address_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Address:"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/uuid_title" />
-    <TextView
-        android:id="@+id/user_address_street"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:padding="2dp"
-        android:text="501 Highland Trail"
-        app:layout_constraintStart_toEndOf="@id/address_title"
-        app:layout_constraintTop_toBottomOf="@id/user_uuid" />
-    <TextView
-        android:id="@+id/user_address_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:text="Chapel Hill, "
-        app:layout_constraintStart_toStartOf="@id/user_address_street"
-        app:layout_constraintTop_toBottomOf="@id/user_address_street" />
-
-    <TextView
-        android:id="@+id/user_address_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:text="North Carolina"
-        app:layout_constraintStart_toEndOf="@id/user_address_city"
-        app:layout_constraintTop_toTopOf="@id/user_address_city" />
-
-    <TextView
-        android:id="@+id/user_address_zip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:text="27516"
-        app:layout_constraintStart_toEndOf="@id/user_address_state"
-        app:layout_constraintTop_toTopOf="@id/user_address_state" />
 
     <TextView
         android:id="@+id/phone_title"
@@ -132,7 +135,8 @@
         android:text="Home phone number:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_address_city" />
+        app:layout_constraintTop_toBottomOf="@id/user_uuid" />
+
     <TextView
         android:id="@+id/user_phone"
         android:layout_width="wrap_content"
@@ -140,7 +144,7 @@
         android:padding="8dp"
         android:text="703-399-4377"
         app:layout_constraintStart_toEndOf="@id/phone_title"
-        app:layout_constraintTop_toBottomOf="@id/user_address_city" />
+        app:layout_constraintTop_toBottomOf="@id/user_uuid" />
 
     <TextView
         android:id="@+id/cell_title"
@@ -151,49 +155,81 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_title" />
+
     <TextView
         android:id="@+id/user_cell"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
+        app:layout_constraintStart_toStartOf="@id/user_phone"
+
         android:text="703-399-4377"
         app:layout_constraintStart_toEndOf="@id/cell_title"
         app:layout_constraintTop_toBottomOf="@id/phone_title" />
 
+
     <TextView
-        android:id="@+id/dob_title"
+        android:id="@+id/address_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="Date of birth:"
+        android:text="Address:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cell_title" />
-    <TextView
-        android:id="@+id/user_dob"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="10-03-1990"
-        app:layout_constraintStart_toEndOf="@id/dob_title"
         app:layout_constraintTop_toBottomOf="@id/cell_title" />
 
     <TextView
-        android:id="@+id/age_title"
+        android:id="@+id/user_address_street_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="Age:"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dob_title" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="501"
+        app:layout_constraintStart_toStartOf="@id/user_phone"
+        app:layout_constraintStart_toEndOf="@id/address_title"
+        app:layout_constraintTop_toBottomOf="@id/user_cell" />
+
     <TextView
-        android:id="@+id/user_age"
+        android:id="@+id/user_address_street_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:text="31"
-        app:layout_constraintStart_toEndOf="@id/age_title"
-        app:layout_constraintTop_toBottomOf="@id/dob_title" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="5dp"
+        android:text="Highland Trail"
+        app:layout_constraintStart_toEndOf="@id/user_address_street_number"
+        app:layout_constraintTop_toBottomOf="@id/cell_title" />
+
+    <TextView
+        android:id="@+id/user_address_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Chapel Hill,"
+        app:layout_constraintStart_toStartOf="@id/user_address_street_number"
+        app:layout_constraintTop_toBottomOf="@id/address_title" />
+
+    <TextView
+        android:id="@+id/user_address_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="8dp"
+        android:text="North Carolina"
+        app:layout_constraintStart_toEndOf="@id/user_address_city"
+        app:layout_constraintTop_toTopOf="@id/user_address_city" />
+
+    <TextView
+        android:id="@+id/user_address_zip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="27516"
+        app:layout_constraintStart_toStartOf="@id/user_address_city"
+        app:layout_constraintTop_toBottomOf="@id/user_address_city" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
